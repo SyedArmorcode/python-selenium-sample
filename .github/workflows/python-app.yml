@@ -1,0 +1,31 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: ArmorCode
+
+env:
+  armorcodehost: https://app.armorcode.com
+  product: Pet-Clinic
+  subProduct: Processor
+  environment: Production
+  token: ${{68443be7-1402-4e9a-8ea6-ef19110bb2a6}}
+  buildTool: GITHUB_ACTIONS
+  buildNumber: ${{github.run_number}}
+  end: 30
+
+
+on:
+  # Triggers the workflow on push request events
+  push:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # ArmorCode Validation Step
+    steps:
+      - name: ArmorCode Validation
+        run: |
+          wget https://app.armorcode.com/static/scripts/slastatus.sh
+          sh slastatus.sh
